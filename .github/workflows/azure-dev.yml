@@ -64,7 +64,11 @@ jobs:
             --federated-credential-provider "github" `
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
-        
+      - name: Log in to Azure
+        run: |
+         az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+
       - name: Provision Infrastructure
         run: azd provision --no-prompt
         env:
